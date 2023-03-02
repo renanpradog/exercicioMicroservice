@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Departamento</title>
+</head>
+
+<body>
+    <input type="button" value="Buscar Departamento" onclick="buscarDepartamento()">
+
+    <ul id="departamento">
+    </ul>
+
+
+    <hr>
+
+    <input type="button" value="Mostrar Clientes" onclick="buscarClientes()">
+    <table id="cliente">
+        <tr><td id="nome">Nome</td><td id="endereco">Endereço</td><td id="telefone">Telefone</td></tr>
+    </table>
+
+    <hr>
+
+
+    <h3>Endereço</h3>
+
+    <p>CEP:<input type="text" id="cep" onblur="buscarCEP(this.value)"/></p>
+    <p>Rua: <input type="text" id="rua"></p>
+    <p>Bairro: <input type="text" id="bairro"></p>
+    <p>Cidade: <input type="text" id="localidade"></p>
+    <p>Estado: <input type="text" id="uf"></p>
+    <p>DDD: <input type="text" id="ddd"></p>
+
+    <script>
+
+        function buscarClientes(){
+            fetch("http://demo6963908.mockable.io/clientes")
+            .then(response => response.json())
+            .then(data => criarListaCliente(data))
+            .catch(error => alert("o erro foi:" + error))
+        }
+
+        function criarListaCliente(data){
+            for(let i = 0; i < data.length; i++){
+                let item = `<tr><td>${data[i].nome}</td><td>${data[i].endereco}</td><td>${data[i].telefone}</td></tr>`
+                document.getElementById("cliente").innerHTML += item;
+            }
+        }
+
+        function preencherCliente(data){
+            document.getElementById("nome").value = data.nome;
+            document.getElementById("endereco").value = data.endereco;
+            document.getElementById("telefone").value = data.telefone;
+        }
+
+
+        // let l = 1;
+        // l = "string"
+        // var v;
+        // const c;
+
+
+        function buscarDepartamento() {
+            fetch("http://demo7610414.mockable.io/")
+                .then(response => response.json())
+                .then(data => criarListaDepartamento(data))
+                .catch(error => alert(error))
+        }
+
+        function criarListaDepartamento(data) {
+            // debugger; 
+            // console.log(data); 
+            for (let i = 0; i < data.length; i++) {
+                let item = `<li> ${data[i]}</li>`;
+                document.getElementById("departamento").innerHTML += item;
+            }
+        }
+        //__________________________ 
+
+        function buscarCEP(cep) {
+            const url = `https://viacep.com.br/ws/${cep}/json/`;
+            fetch(url)
+                .then(response => response.json())
+                .then(data => preencherCEP(data))
+                .catch(error => alert(error))
+        }
+
+        function preencherCEP(data) {
+            document.getElementById("rua").value = data.logradouro;
+            document.getElementById("bairro").value = data.bairro;
+            document.getElementById("localidade").value = data.localidade;
+            document.getElementById("uf").value = data.uf;
+            document.getElementById("ddd").value = data.ddd;
+        }
+    </script>
+
+</body>
+
+</html>
