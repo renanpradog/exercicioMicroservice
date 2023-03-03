@@ -90,11 +90,6 @@
         }
 
 
-        // let l = 1;
-        // l = "string"
-        // var v;
-        // const c;
-
 
         function buscarDepartamento() {
             fetch("http://demo7610414.mockable.io/")
@@ -104,14 +99,11 @@
         }
 
         function criarListaDepartamento(data) {
-            // debugger; 
-            // console.log(data); 
             for (let i = 0; i < data.length; i++) {
                 let item = `<li> ${data[i]}</li>`;
                 document.getElementById("departamento").innerHTML += item;
             }
         }
-        //__________________________ 
 
         function buscarCEP(cep) {
             const url = `https://viacep.com.br/ws/${cep}/json/`;
