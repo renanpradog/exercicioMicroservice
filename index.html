@@ -9,7 +9,7 @@
     <title>Departamento</title>
 </head>
 
-<body>
+<body onload="buscarVeiculos(),buscarMaterias()">
     <input type="button" value="Buscar Departamento" onclick="buscarDepartamento()">
 
     <ul id="departamento">
@@ -25,6 +25,17 @@
 
     <hr>
 
+    <label for="modelo">Escolha o modelo:</label>
+
+    <select name="modelo" id="modelo"></select>
+
+    <hr>
+
+    <hr>
+
+    <table id="materias">
+        <tr><td id="materias">Matérias</td></tr>
+    </table>
 
     <h3>Endereço</h3>
 
@@ -35,9 +46,29 @@
     <p>Estado: <input type="text" id="uf"></p>
     <p>DDD: <input type="text" id="ddd"></p>
 
+    <hr>
+
+    
+
+
     <script>
 //http://demo6963908.mockable.io/veiculos
-            function buscarVeiculos){
+            function buscarMaterias(){
+            fetch("http://demo6963908.mockable.io/materias")
+            .then(response => response.json())
+            .then(data => criarListaMaterias(data))
+            .catch(error => alert("o erro foi:" + error))
+        }
+
+            function criarListaMaterias(data){
+                for(let i = 0; i < data.length; i++){
+                    let item = `<tr><td>${data[i]}</td></tr>`
+                    document.getElementById("materias").innerHTML += item;
+            }
+        }
+        
+
+            function buscarVeiculos(){
             fetch("http://demo6963908.mockable.io/veiculos")
             .then(response => response.json())
             .then(data => criarListaVeiculos(data))
@@ -45,11 +76,10 @@
         }
             function criarListaVeiculos(data){
                 for(let i = 0; i < data.length; i++){
-                    let item = `<li> ${data[i]}</li>`;
-                    document.getElementById("cliente").innerHTML += item;
+                    let item = `<option value="modelo">${data[i]}</option>`;
+                    document.getElementById("modelo").innerHTML += item;
             }
         }
-
             function buscarClientes(){
             fetch("http://demo6963908.mockable.io/clientes")
             .then(response => response.json())
