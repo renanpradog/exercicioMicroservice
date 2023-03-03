@@ -10,11 +10,15 @@
 </head>
 
 <body onload="buscarVeiculos(),buscarMaterias()">
-    <input type="button" value="Buscar Departamento" onclick="buscarDepartamento()">
 
-    <ul id="departamento">
-    </ul>
+    <h3>Endereço</h3>
 
+    <p>CEP:<input type="text" id="cep" onblur="buscarCEP(this.value)"/></p>
+    <p>Rua: <input type="text" id="rua"></p>
+    <p>Bairro: <input type="text" id="bairro"></p>
+    <p>Cidade: <input type="text" id="localidade"></p>
+    <p>Estado: <input type="text" id="uf"></p>
+    <p>DDD: <input type="text" id="ddd"></p>
 
     <hr>
 
@@ -31,28 +35,13 @@
 
     <hr>
 
-    <hr>
-
     <table id="materias">
         <tr><td id="materias">Matérias</td></tr>
-    </table>
-
-    <h3>Endereço</h3>
-
-    <p>CEP:<input type="text" id="cep" onblur="buscarCEP(this.value)"/></p>
-    <p>Rua: <input type="text" id="rua"></p>
-    <p>Bairro: <input type="text" id="bairro"></p>
-    <p>Cidade: <input type="text" id="localidade"></p>
-    <p>Estado: <input type="text" id="uf"></p>
-    <p>DDD: <input type="text" id="ddd"></p>
-
-    <hr>
-
-    
+    </table>   
 
 
     <script>
-//http://demo6963908.mockable.io/veiculos
+        
             function buscarMaterias(){
             fetch("http://demo6963908.mockable.io/materias")
             .then(response => response.json())
